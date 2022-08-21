@@ -1,0 +1,179 @@
+﻿@using u21498629_HW04.Models
+@{
+    ViewBag.Title = "Donation";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<style>
+    .form-group {
+        width: 300px;
+        margin: auto;
+    }
+</style>
+
+
+<!--saving form data to folder-->
+@{ 
+    if (IsPost)
+    {
+        var name = Request["name"];
+        var surname = Request["surname"];
+        var email = Request["email"];
+        var cellphone = Request["cellphone"];
+        var newsletter = Request["newletter"];
+
+        var person = name + ","
+        + surname + ","
+        + email + ","
+        + cellphone + ","
+        + newsletter + ","
+        + Environment.NewLine;
+
+
+        var dataFile = Server.MapPath("~/Media/Info.txt");
+        File.AppendAllText(@dataFile, person);
+    } }
+
+
+<div class="container-sm well-sm" style="background-color:teal; text-align:center">
+    <h1>Donation</h1><br />
+
+    <form id="form1" method="post">
+
+        <!--radio buttons for donation type-->
+        <div class="form-group">
+            <label for="donationType">Choose Donation</label>
+            <select class="form-control" id="donationType" name="type" required>
+                <option value="0">Select ...</option>
+                <option value="1">Money</option>
+                <option value="2">Basket</option>
+                <option value="3">Item</option>
+            </select>
+        </div>
+        <br />
+
+        <!--form labels and inputs for all-->
+        <div class="form-group">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div><br />
+        <div class="mb-3 mt-3 form-group">
+            <label for="surname" class="form-label">Surname</label>
+            <input type="text" class="form-control" id="surname" name="surname" required>
+        </div><br />
+        <div class="mb-3 mt-3 form-group">
+            <label for="cellphone" class="form-label">Cellphone Number</label>
+            <input type="text" class="form-control" id="cellphone" name="cellphone" required>
+        </div><br />
+        <div class="mb-3 mt-3 form-group">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div><br />
+
+        <label for="newsletter" class="form-label">Subscribe to newsletter for updates and events</label>
+        <br />
+        <div class="form-check form-group">
+            <input type="radio" class="form-check-input" id="yes" name="yes" value="4">
+            <label class="form-check-label" for="yes">Yes</label>
+        </div>
+        <div class="form-check form-group">
+            <input type="radio" class="form-check-input" id="no" name="no" value="5">
+            <label class="form-check-label" for="no">No</label>
+        </div>
+        <br />
+
+        <!--form inputs for money donation-->
+        <div class="form-group money">
+            <label for="amount" class="form-label">Amount</label>
+            <input type="number" class="form-control" name="amount" id="amount" required />
+        </div><br />
+
+        <div class="form-group money">
+            <label for="proofOfPayment" class="form-label">Upload proof of payment</label>
+            <input type="file" class="form-control" name="proofOfPayment" id="proofOfPayment" required />
+        </div><br />
+
+        <!--form inputs for basket donation-->
+        <div class="form-group basket">
+            <p>
+                Please note that all our baskets include the following:
+                <ol>
+                    <li>Toilet paper</li>
+                    <li>Blanket</li>
+                    <li>Protex bar soap</li>
+                    <li>Wash cloth</li>
+                    <li>Toothbrush</li>
+                    <li>Vaseline</li>
+                    <li>Peanut butter</li>
+                    <li>Sunflower oil</li>
+                </ol>
+            </p>
+        </div><br />
+        <div class="form-group basket">
+            <label for="basketPicture" class="form-label">Picture of the basket</label>
+            <input type="file" class="form-control" name="basketPicture" id="basketPicture" required />
+        </div><br />
+
+        <!--form inputs for item donation-->
+        <div class="form-control item">
+            <input class="form-check-input" type="checkbox" id="toiletPaper" name="toiletPaper" value="6">
+            <label class="form-check-label">Toilet Paper</label>
+        </div>
+        <div class="form-control item">
+            <input class="form-check-input" type="checkbox" id="blanket" name="blanket" value="7">
+            <label class="form-check-label">Blanket</label>
+        </div>
+        <div class="form-control item">
+            <input class="form-check-input" type="checkbox" id="protext" name="protext" value="8">
+            <label class="form-check-label">Protex bar soap</label>
+        </div>
+        <div class="form-control item">
+            <input class="form-check-input" type="checkbox" id="cloth" name="cloth" value="9">
+            <label class="form-check-label">Wash cloth</label>
+        </div>
+        <div class="form-control item">
+            <input class="form-check-input" type="checkbox" id="toothbrush" name="toothbrush" value="10">
+            <label class="form-check-label">Toothbrush</label>
+        </div>
+        <div class="form-control item">
+            <input class="form-check-input" type="checkbox" id="vaseline" name="vaseline" value="11">
+            <label class="form-check-label">Vaseline</label>
+        </div>
+        <div class="form-control item">
+            <input class="form-check-input" type="checkbox" id="peanutButter" name="peanutButter" value="12">
+            <label class="form-check-label">Peanut butter</label>
+        </div>
+        <div class="form-control item">
+            <input class="form-check-input" type="checkbox" id="oil" name="oil" value="13">
+            <label class="form-check-label">Sunflower oil</label>
+        </div>
+        <div class="form-group item">
+            <label for="itemPicture" class="form-label">Picture of the items</label>
+            <input type="file" class="form-control" name="itemPicture" id="itemPicture" required />
+        </div>
+
+        <!--form submission buttom-->
+        <input type="submit" onclick="resetFunction()" value="Submit" class="btn btn-lg" style="background-color: purple; border:purple" /><br />
+    </form>
+</div>
+
+<!--Form reset function-->
+    <script>
+        function resetFunction()
+        {
+            alert("Information saved!");
+            document.getElementById("form1").reset();
+        }
+
+    </script>
+
+    @section Scripts {
+
+        <script type="text/javascript" src="@Url.Content("~/Scripts/Form/Form.js")" asp-append-version="true"></script>
+    }
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/modernizr")
+
